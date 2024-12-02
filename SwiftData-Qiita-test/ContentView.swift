@@ -42,14 +42,16 @@ struct ContentView: View {
     private func addItem() {
         withAnimation {
             let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
+//            modelContext.insert(newItem)
+            ItemDatastore.shared.insert(modelContext: modelContext, timestamp: newItem.timestamp)
         }
     }
 
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-                modelContext.delete(items[index])
+//                modelContext.delete(items[index])
+                ItemDatastore.shared.delete(modelContext: modelContext, item: items[index])
             }
         }
     }

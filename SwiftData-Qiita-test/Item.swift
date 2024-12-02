@@ -16,3 +16,23 @@ final class Item {
         self.timestamp = timestamp
     }
 }
+
+
+class ItemDatastore {
+    // シングルトン
+    @MainActor static let shared = ItemDatastore()
+    
+    func insert(modelContext: ModelContext, timestamp: Date) {
+        modelContext.insert(Item(timestamp: timestamp))
+        
+        try? modelContext.save()
+    }
+    
+    
+    func delete(modelContext: ModelContext, item: Item) {
+        modelContext.delete(item)
+        
+        try? modelContext.save()
+    }
+    
+}
